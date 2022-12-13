@@ -1,0 +1,60 @@
+{
+	"folders": [
+		{
+			"path": "jsinfo_p1c2"
+		},
+		{
+			"path": "jsinfo_p1c3"
+		},
+		{
+			"path": "jsinfo_p1c3_tests"
+		},
+		{
+			"path": "jsinfo_p1c4"
+		},
+		{
+			"path": "jsinfo_p1c5"
+		},
+		{
+			"path": "jsinfo_p1c6"
+		},
+		{
+			"path": "jsinfo_p1c7"
+		},
+		{
+			"path": "jsinfo_p1c8"
+		},
+		{
+			"path": "jsinfo_p1c9"
+		},
+		{
+			"path": "jsinfo_p1c10"
+		},
+		{
+			"path": "jsinfo_p1c11"
+		}
+	],
+	"settings": {
+		"launch": {
+
+
+			"configurations": [],
+			"compounds": []
+		},
+		"liveServer.settings.multiRootWorkspaceName": "jsinfo_p1c11"
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+		{
+			"type": "firefox",
+			"request": "launch",
+			"reAttach": true,
+			"name": "Launch index.html (?)",
+			"file": "${workspaceFolder}/index.html"
+		}
+			
+		
+		]
+	}
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    .message-ball {
+      font-size: 20px;
+      line-height: 200px;
+      text-align: center;
+    }
+    .circle {
+      transition-property: width, height;
+      transition-duration: 2s;
+      position: fixed;
+      transform: translateX(-50%) translateY(-50%);
+      background-color: rgb(115, 196, 115);
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <button onclick="go()">Click me</button>
+
+  <script>
+
+  function go() {
+    // Alternative 1: first create the promise and run it, afterwards we process it
+    let promise = new showCircle(150, 150, 100);
+    promise.then(divvvv => {
+      divvvv.classList.add('message-ball');
+      divvvv.append("Hello, world!");})
+
+    // Alternative 2: write both in a single line (creation, and processing)
+    //   showCircle(150, 150, 100).then(divvvv => {
+    //     divvvv.classList.add('message-ball');
+    //     divvvv.append("Hello, world!");
+    //   });
+  }
+
+  function showCircle(cx, cy, radius) {
+    let div = document.createElement('whatever_name_goes_here');
+    div.style.width = 0;
+    div.style.height = 0;
+    div.style.left = cx + 'px';
+    div.style.top = cy + 'px';
+    div.className = 'circle';
+    document.body.append(div);
+
+    return new Promise(resolveeee => {
+      setTimeout(() => {
+        div.style.width = radius * 2 + 'px';
+        div.style.height = radius * 2 + 'px';
+
+        div.addEventListener('transitionend', function handler() {
+          div.removeEventListener('transitionend', handler);
+          resolveeee(div);
+        });
+      }, 0);
+    })
+  }
+  </script>
+
+
+</body>
+</html>
