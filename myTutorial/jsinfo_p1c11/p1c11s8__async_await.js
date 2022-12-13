@@ -268,7 +268,7 @@
   async function wait() {
     await new Promise(resolve => setTimeout(resolve, 1000));
   
-    return "f() just ended!";
+    return "f() just ended!~~~";
   }
   
   function f() {
