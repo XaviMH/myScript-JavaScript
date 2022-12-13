@@ -261,7 +261,7 @@
   We have a “regular” function called @f. How can you call the async function wait() 
   and use its result inside of f?
 
-  Simple! Just make use of "Theory 1" and...
+  Simple! Just make use of "Theory 1" and......
 */
 
 {
