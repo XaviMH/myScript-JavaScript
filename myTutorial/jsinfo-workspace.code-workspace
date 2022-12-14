@@ -32,6 +32,9 @@
 		},
 		{
 			"path": "jsinfo_p1c11"
+		},
+		{
+			"path": "jsinfo_p1c12"
 		}
 	],
 	"settings": {
@@ -41,7 +44,7 @@
 			"configurations": [],
 			"compounds": []
 		},
-		"liveServer.settings.multiRootWorkspaceName": "jsinfo_p1c11"
+		"liveServer.settings.multiRootWorkspaceName": "jsinfo_p1c12"
 	},
 	"launch": {
 		"version": "0.2.0",
