@@ -28,7 +28,9 @@
   Generators can return (“yield”) multiple values, one after another, on-demand. They 
   work great with iterables, allowing to create data streams with ease.
 
-  The main method of a generator is next(). When called, it runs the execution until the nearest yield <value> statement (value can be omitted, then it’s undefined). Then the function execution pauses, and the yielded value is returned to the outer code.
+  The main method of a generator is next(). When called, it runs the execution until the 
+  nearest yield <value> statement (value can be omitted, then it’s undefined). Then the 
+  function execution pauses, and the yielded value is returned to the outer code.
 
   The result of next() is always an object with two properties:
    - value: the yielded value.
@@ -222,4 +224,124 @@
   console.log( generator.next().value );   // "2 + 2 = ?"
   console.log( generator.next(4).value );     // "4", and "3 * 3 = ?"
   console.log( generator.next(9).done );      // "9", and "true"
+}
+
+/* 
+  Theory 7
+
+  As we observed in the examples above, the outer code may pass a value into the generator, as the result of yield.
+  …But it can also initiate (throw) an error there. That’s natural, as an error is a kind of result.
+  To pass an error into a yield, we should call --> generator.throw(err). 
+  Inthat case, the err is thrown in the line with that yield.
+
+  We can catch the error either inside, or outside the generator, as follows...
+
+*/
+{
+  function* gen() {
+    try {
+      let result = yield "7 + 7 = ?"; // Imagine that a random error appears in this line
+      console.error("The execution does not reach here, because the exception is thrown above");
+    } catch(e) {
+      console.error(e); // shows the error
+    }
+  }
+  
+  let generator = gen();
+  console.log(generator.next().value);  
+  generator.throw(new Error("The answer is not found in my database")); // (2)
+
+}
+  /* or... */
+{
+  function* generate() {
+    let result = yield "8 + 8 = ?"; // Imagine that a random error appears in this line
+  }
+  
+  let generator = generate();
+  console.log(generator.next().value);  
+  
+  try {
+    generator.throw(new Error("The answer is not found in my database"));
+  } catch(e) {
+    console.error(e); // shows the error
+  }
+}
+
+
+/* 
+  Exercise 1
+
+  Pseudo-random generator
+
+  There are many areas where we need random data
+
+  One of them is testing. We may need random data: text, numbers, etc. to test 
+  things out well.
+
+  In JavaScript, we could use Math.random(). But if something goes wrong, we’d 
+  like to be able to repeat the test, using exactly the same data.
+
+  For that, so called “seeded pseudo-random generators” are used. They take a “
+  seed”, the first value, and then generate the next ones using a formula so that 
+  the same seed yields the same sequence, and hence the whole flow is easily 
+  reproducible. We only need to remember the seed to repeat it.
+
+  An example of such formula, that generates somewhat uniformly 
+  distributed values:
+
+      next = previous * 16807 % 2147483647
+
+  If we use 1 as the seed, the values will be:
+
+      16807
+      282475249
+      1622650073
+      …and so on…
+
+  The task is to create a generator function pseudoRandom(seed) that takes seed 
+  and creates the generator with this formula.
+
+  Usage example:
+
+    let generator = pseudoRandom(1);
+    console.log(generator.next().value); // 16807
+    console.log(generator.next().value); // 282475249
+    console.log(generator.next().value); // 1622650073
+*/
+{
+  {
+    function* pseudoRandom(seed) {
+      let value = seed;
+    
+      while(true) {
+        value = value * 16807 % 2147483647;
+        yield value;
+      }
+    
+    };
+    
+    let generator = pseudoRandom(1);
+    console.log(generator.next().value); // 16807
+    console.log(generator.next().value); // 282475249
+    console.log(generator.next().value); // 1622650073
+  }
+   /* ...or we could just use a function (and lose iterability)... */
+  {
+    function pseudoRandom(seed) {
+      let value = seed;
+    
+      return function() {
+        value = value * 16807 % 2147483647;
+        return value;
+      }
+    }
+    
+    let generator = pseudoRandom(1);
+    
+    console.log(generator()); // 16807
+    console.log(generator()); // 282475249
+    console.log(generator()); // 1622650073
+  }
+
 }

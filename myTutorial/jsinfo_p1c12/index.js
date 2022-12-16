@@ -9,14 +9,14 @@ import { dynamicallyLoadScript } from "./xLibs/importScripts.js"
 let src = "";
 let expression = 0;
 
-let SELECTION = 1; 
+let SELECTION = 2; 
 do expression++; while (expression < SELECTION);
 
 switch(expression) {
   case 1:
     src = "./p1c12s1__generators.js"; break;
   case 2:
-    src = "./p1c12s2__asyncIteration"; break;
+    src = "./p1c12s2__asyncIteration.js"; break;
   default:
     console.error("ERROR: the provided expression is undefined!");
 } 
