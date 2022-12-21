@@ -252,3 +252,190 @@
   
   sayHi("Ann"); // Hello, Ann! (after 3 seconds)
 }
+
+/*
+  Theory 7
+
+  In particular, Reflect allows us to call operators (new, delete…) as functions (Reflect.construct, 
+  Reflect.deleteProperty, …). That’s an interesting capability, but here another thing is important.
+
+  For every internal method, trappable by Proxy, there’s a corresponding method in Reflect, with the
+  same name and arguments as the Proxy trap.
+
+  So we can use Reflect to forward an operation to the original object.
+
+  In this example, both traps get and set transparently (as if they didn’t exist) forward reading/writing 
+  operations to the object, showing a message
+*/
+{
+  let user = {
+    name: "John",
+  };
+  
+  user = new Proxy(user, {
+    get(target, prop, receiver) {
+      console.log(`GET ${prop}`);
+      return Reflect.get(target, prop, receiver); // (1)
+    },
+    set(target, prop, val, receiver) {
+      console.log(`SET ${prop}=${val}`);
+      return Reflect.set(target, prop, val, receiver); // (2)
+    }
+  });
+  
+  let name = user.name; // shows "GET name"
+  user.name = "Pete";   // shows "SET name=Pete"
+
+}
+
+/* 
+  Theory 8
+
+  Mind that Proxies can be revoked temporarilly
+*/
+{
+  let object = {
+    data: "Valuable data"
+  };
+  
+  let {proxy, revoke} = Proxy.revocable(object, {});
+  
+  // pass the proxy somewhere instead of object...
+  console.log(proxy.data); // Valuable data
+  
+  // later in our code
+  revoke();
+  
+  // the proxy isn't working any more (revoked)
+  try {
+    console.log(proxy.data); // Error
+  } catch (err) {
+    console.log(err);
+  }
+
+}
+
+/* 
+  Exercise 1
+
+  Error on reading non-existent property
+  Usually, an attempt to read a non-existent property returns undefined.
+  Create a proxy that throws an error for an attempt to read of a non-existent property instead.
+  That can help to detect programming mistakes early.
+  Write a function wrap(target) that takes an object target and return a proxy that adds this functionality aspect.
+*/
+{
+  let user = {
+    name: "John"
+  };
+  
+  function wrap(target) {
+    return new Proxy(target, {
+      get(target, prop, receiver) {
+        if (prop in target) {
+          return Reflect.get(target, prop, receiver);
+        } else {
+          throw new ReferenceError(`Property doesn't exist: "${prop}"`)
+        }
+      }
+    });
+  }
+  
+  user = wrap(user);
+  
+  console.log(user.name); // John
+  console.log(user.age); // ReferenceError: Property doesn't exist: "age"
+
+}
+
+/*
+  Exercise 2
+
+  In some programming languages, we can access array elements using negative indexes, counted from the end.
+
+  Like this:
+
+    let array = [1, 2, 3];
+    array[-1]; // 3, the last element
+    array[-2]; // 2, one step from the end
+    array[-3]; // 1, two steps from the end
+
+  In other words, array[-N] is the same as array[array.length - N].
+  Create a proxy to implement that behavior.
+*/
+{
+  let array = [1, 2, 3];
+
+  array = new Proxy(array, {
+    get(target, prop, receiver) {
+      if (prop < 0) {
+        // even if we access it like arr[1]
+        // prop is a string, so need to convert it to number
+        prop = +prop + target.length;
+      }
+      return Reflect.get(target, prop, receiver);
+    }
+  });
+
+
+  console.log(array[-1]); // 3
+  console.log(array[-2]); // 2
+
+
+}
+
+/* 
+  Exercise 3
+
+  Create a function makeObservable(target) that “makes the object observable” by returning a proxy.
+  In other words, an object returned by makeObservable is just like the original one, but also has 
+  the method observe(handler) that sets handler function to be called on any property change.
+
+  Whenever a property changes, handler(key, value) is called with the name and value of the property.
+
+  P.S. In this task, please only take care about writing to a property. Other operations can be 
+  implemented in a similar way.
+
+  The solution consists of two parts:
+    (1) Whenever .observe(handler) is called, we need to remember the handler somewhere, to be able
+        to call it later. We can store handlers right in the object, using our symbol as the property 
+        key.
+    (2) We need a proxy with set trap to call handlers in case of any change.
+
+*/
+{
+  let handlers = Symbol('handlers');
+
+  function makeObservable(target) {
+    // 1. Initialize handlers store
+    target[handlers] = [];
+  
+    // Store the handler function in array for future calls
+    target.observe = function(handler) {
+      this[handlers].push(handler);
+    };
+  
+    // 2. Create a proxy to handle changes
+    return new Proxy(target, {
+      set(target, property, value, receiver) {
+        let success = Reflect.set(...arguments); // forward the operation to object
+        if (success) { // if there were no error while setting the property
+          // call all handlers
+          target[handlers].forEach(handler => handler(property, value));
+        }
+        return success;
+      }
+    });
+  }
+  
+  let user = {};
+  
+  user = makeObservable(user);
+  
+  user.observe((key, value) => {
+    alert(`SET ${key}=${value}`); // <--- ideally, this line should pop an alert whenever changes applies to "user"
+  });
+  
+  user.name = "John";
+
+}
