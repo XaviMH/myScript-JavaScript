@@ -1,4 +1,7 @@
 
+// SUMMARY
+console.log("Testing the fundamentals of JavaScript")
+
 // Valiables and constants --------------------------------------------------------------------------------------
 // using varaibles
 let user = 'John';
