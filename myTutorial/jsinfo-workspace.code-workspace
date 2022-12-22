@@ -50,20 +50,6 @@
 			"configurations": [],
 			"compounds": []
 		},
-		"liveServer.settings.multiRootWorkspaceName": "jsinfo_p1c14"
+		"liveServer.settings.multiRootWorkspaceName": "jsinfo_p1c2"
 	},
-	"launch": {
-		"version": "0.2.0",
-		"configurations": [
-		{
-			"type": "firefox",
-			"request": "launch",
-			"reAttach": true,
-			"name": "Launch index.html (?)",
-			"file": "${workspaceFolder}/index.html"
-		}
-			
-		
-		]
-	}
 }
