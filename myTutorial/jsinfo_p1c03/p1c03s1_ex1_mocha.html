@@ -47,9 +47,9 @@
       /* test 3 */
       /*let result = 1;
       for (let i = 0; i < n; i++) {
-        result *= x;
+        result *= x; // fails for unexpected values
       }
-      return result;*/
+      return result;*/ 
 
       /* test 4 */
       if (n < 0) return NaN;
@@ -64,7 +64,7 @@
   </script>
 
   <!-- the script with tests (describe, it...) -->
-  <script src="test.js"></script>
+  <script src="./p1c03s1_ex1_test.js"></script>
 
   <!-- the element with id="mocha" will contain test results -->
   <div id="mocha"></div>

@@ -9,7 +9,7 @@ import { dynamicallyLoadScript } from "./xLibs/importScripts.js"
 let src = "";
 let expression = 0;
 
-let SELECTION = 1; 
+let SELECTION = 2; 
 do expression++; while (expression < SELECTION);
 
 switch(expression) {
@@ -23,5 +23,5 @@ switch(expression) {
     console.error("ERROR: the provided expression is undefined!");
 } 
 
+console.log(`About to load this script: [${src}]`)
 dynamicallyLoadScript(src);
-console.log("script loaded");

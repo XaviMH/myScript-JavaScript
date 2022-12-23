@@ -1,45 +1,55 @@
 {
 	"folders": [
 		{
-			"path": "jsinfo_p1c2"
+			"name": "jsinfo_p1c02",
+			"path": "jsinfo_p1c02"
 		},
 		{
-			"path": "jsinfo_p1c3"
+			"name": "jsinfo_p1c03",
+			"path": "jsinfo_p1c03"
 		},
 		{
-			"path": "jsinfo_p1c3_tests"
+			"name": "jsinfo_p1c04",
+			"path": "jsinfo_p1c04"
 		},
 		{
-			"path": "jsinfo_p1c4"
+			"name": "jsinfo_p1c05",
+			"path": "jsinfo_p1c05"
 		},
 		{
-			"path": "jsinfo_p1c5"
+			"name": "jsinfo_p1c06",
+			"path": "jsinfo_p1c06"
 		},
 		{
-			"path": "jsinfo_p1c6"
+			"name": "jsinfo_p1c07",
+			"path": "jsinfo_p1c07"
 		},
 		{
-			"path": "jsinfo_p1c7"
+			"name": "jsinfo_p1c08",
+			"path": "jsinfo_p1c08"
 		},
 		{
-			"path": "jsinfo_p1c8"
+			"name": "jsinfo_p1c09",
+			"path": "jsinfo_p1c09"
 		},
 		{
-			"path": "jsinfo_p1c9"
-		},
-		{
+			"name": "jsinfo_p1c10",
 			"path": "jsinfo_p1c10"
 		},
 		{
+			"name": "jsinfo_p1c11",
 			"path": "jsinfo_p1c11"
 		},
 		{
+			"name": "jsinfo_p1c12",
 			"path": "jsinfo_p1c12"
 		},
 		{
+			"name": "jsinfo_p1c13",
 			"path": "jsinfo_p1c13"
 		},
 		{
+			"name": "jsinfo_p1c14",
 			"path": "jsinfo_p1c14"
 		}
 	],
@@ -50,6 +60,6 @@
 			"configurations": [],
 			"compounds": []
 		},
-		"liveServer.settings.multiRootWorkspaceName": "jsinfo_p1c2"
+		"liveServer.settings.multiRootWorkspaceName": "jsinfo_p1c03"
 	},
 }

@@ -1,4 +1,8 @@
 
+// SUMMARY
+console.log("Testing the conditionals of JavaScript")
+
+
 // Conditionals -----------------------------------------------
 // First off, let's conditionals
 5 > 4                  // True
@@ -10,21 +14,22 @@ null == "\n0\n"        // False, similar to (4), null only equals undefined.
 null === "\n0\n"       // False, given that "Strict equality" is comparing "null" to a "string"
 null === +"\n0\n"      // False, given that "Strict equality" is comparing "null" to a "number" (notice the "plus" symbol)
 
-// Simple conditional
-let a = 2, b = 3;
-let result1;
+// Simple conditionals
+let a = 10;
+let b = 3;
 
 if (a + b < 4) {
-  result1 = 'Below';
+  result = 'Below';
 } else {
-  result1 = 'Over';
+  result = 'Over';
 }
 
 // ... that can also be written with "?"
-let result2 = (a + b < 4) ? 'Below' : 'Over';
+result = (a + b < 4) ? 'Below' : 'Over';
+console.log(`@result is: ${result}`);
 
 // More complex conditional
-let login = 'Whatever'
+let login = 'Director';
 let message;
 
 if (login == 'Employee') {
@@ -43,8 +48,43 @@ message = (login == 'Employee') ? 'Hello' :
   (login == '') ? 'No login' :
   '';
 
-// Real life example
-let userName = prompt("Who's there?", '');
+console.log(`@message is: ${message}`);
+
+// loops are accepted:
+////    while – The condition is checked before each iteration.
+//    do..while – The condition is checked after each iteration.
+//    for (;;) – The condition is checked before each iteration, additional settings available.
+for (let i = 0; i < 10; i++) {
+  // if true, skip the remaining part of the body
+  if (i % 2 == 0) continue;
+  console.log(i); // 1, then 3, 5, 7, 9
+}
+
+
+// switch..case is also accepted
+let browser = "Edge";
+switch (browser) {
+  case 'Edge':
+    console.log( "You've got the Edge!" );
+    break;
+
+  case 'Chrome':
+  case 'Firefox':
+  case 'Safari':
+  case 'Opera':
+    console.log( 'Okay we support these browsers too' );
+    break;
+
+  default:
+    console.log( 'We hope that this page looks ok!' );
+}
+
+/* 
+  Exercise 1 
+  A real life example on how to use conditionals
+*/
+// let userName = prompt("Who's there?", '');  // ommited for brevity
+let userName = "John";
 
 if (userName === 'Admin') {
 
@@ -61,5 +101,5 @@ if (userName === 'Admin') {
 } else if (userName === '' || userName === null) {
   console.log( 'Canceled' );
 } else {
-  console.log( "I don't know you" );
+  console.log( "Invalid user name" );
 }
