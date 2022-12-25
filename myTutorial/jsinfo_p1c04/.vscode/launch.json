@@ -7,9 +7,17 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Open index.html",
-            "cwd": "${fileDirname}",
-            "file": "${workspaceFolder}/index.html"
-        }
+            "name": "P1Ch04, run LiveServer on current file (good for exercises)",
+            "url": "http://127.0.0.1:5500/${fileBasename}",  // <--- works (LiveServer required)
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "P1Ch04, run LiveServer on 'index.html' (good for theory)",
+            "url": "http://127.0.0.1:5500/index.html",  // <--- works (LiveServer required)
+            // "file": "${workspaceFolder}/index.html"  // <--- works, but it uses the File descriptor, which
+                                                        //      sometimes is not acepted by JScript+LiveServer
+        },        
     ]
 }
+

@@ -23,4 +23,5 @@ switch(expression) {
     console.error("ERROR: the provided expression is undefined!");
 } 
 
+console.log(`About to load this script: [${src}]`)
 dynamicallyLoadScript(src)
