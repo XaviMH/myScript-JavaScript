@@ -21,10 +21,14 @@
    
 */
 
-export function dynamicallyLoadScript(url) {             
+export function dynamicallyLoadScript(url, log = false) {  
+
+  if (log) console.log(`Loading the script [${url}]`);
+
   var script = document.createElement("script");  // create a script DOM node
   script.type = 'text/javascript';
   script.src = url;                               // set its src to the provided URL
   script.defer = true;                            // set defer to be true
+  
   document.head.appendChild(script);              // add it to the end of the 'head' section of the page
 }

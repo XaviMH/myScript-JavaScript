@@ -29,6 +29,6 @@ switch(expression) {
     console.error("ERROR: the provided expression is undefined!");
 } 
 
-dynamicallyLoadScript(src);
+dynamicallyLoadScript(src, true);
 
 
