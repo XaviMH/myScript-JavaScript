@@ -27,7 +27,10 @@
         Symbol.iterator for iterables, Symbol.toPrimitive to setup object-to-primitive conversion 
         and so on.
 
-    Technically, symbols are not 100% hidden. There is a built-in method Object.getOwnPropertySymbols(obj) that allows us to get all symbols. Also there is a method named Reflect.ownKeys(obj) that returns all keys of an object including symbolic ones. But most libraries, built-in functions and syntax constructs don’t use these methods.
+    Technically, symbols are not 100% hidden. There is a built-in method Object.getOwnPropertySymbols(obj) 
+    that allows us to get all symbols. Also there is a method named Reflect.ownKeys(obj) that returns 
+    all keys of an object including symbolic ones. But most libraries, built-in functions and syntax 
+    constructs don’t use these methods.
 
   ==== Regarding Primitives ====
 
@@ -66,6 +69,7 @@
      the name. Multiple calls of Symbol.for with the same key return exactly the same symbol.
 */
 {
+  console.log("Symbols ------------------------------------------");
   /* Example 1 */
   // Two identical symbols are different
   console.log("Hello world")
@@ -107,8 +111,8 @@
     age: 30,
     [id7]: 123
   };
-  for (let key in user7) console.log(key); // name, age, but no Symbols
-  console.log( "Direct access to the symbol: " + user7[id7] );        // but you can still call the Symbol itself
+  for (let key in user7) console.log(key);                        // name, age (but no Symbols)
+  console.log( "Direct access to the symbol: " + user7[id7] );    // but you can still call the Symbol itself
 
 
   /* Exercise 4*/
@@ -132,6 +136,7 @@
         try calling obj.valueOf() or obj.toString(), whatever exists.
 */
 {
+  console.log("Primitives ------------------------------------------");
   // So, the two following examples will work:
   // 1)
   let user9 = {
@@ -139,14 +144,15 @@
       money: 1000,
       [Symbol.toPrimitive](hint) {
         console.log(`hint: ${hint}`);
-        return hint == "string" ? `{name: "${this.name}"}` : this.money;
+        return hint == "string" ? `> name: "${this.name}"` : this.money;
       }
     };
     
     // conversions demo:
-    console.log(user9); // hint: string -> {name: "John"}
-    console.log(+user9); // hint: number -> 1000
-    console.log(user9 + 500); // hint: default -> 1500
+    console.log(user9);             // hint: Object -> returns the object: {name: "John", money: 1000, ...}
+    console.log(String(user9));     // hint: string -> returns the name: Bill
+    console.log(Number(user9));     // hint: number -> returns the money: 1000
+    console.log(user9 + 500);       // hint: default -> 1500
 
   // 2)
   let user10 = {
@@ -154,16 +160,18 @@
       money: 300,
       // for hint="string"}
       toString(){
-        return `{name: "${this.name}"}`;
+        return `> name: ${this.name}`;
       },
       // for hint="number" or "default"
       valueOf() {
         return this.money;
       }
   };
-  console.log(user10); // toString -> {name: "John"}
-  console.log(+user10); // valueOf -> 1000
-  console.log(user10 + 500); // valueOf -> 1500
+  
+  console.log(user10);          // Object itself
+  console.log(String(user10));  // toString -> {name: "Laura", ...}
+  console.log(+user10);         // valueOf -> 1000
+  console.log(user10 + 500);    // valueOf -> 1500
 
   // As a last resort, to be 100% sure that we are catching the conversion, just use .toString()
   let obj = {
