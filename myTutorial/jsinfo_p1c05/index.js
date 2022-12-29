@@ -9,7 +9,7 @@ import { dynamicallyLoadScript } from "./xLibs/importScripts.js"
 let src = "";
 let expression = 0;
 
-let SELECTION = 1; 
+let SELECTION = 4; 
 do expression++; while (expression < SELECTION);
 
 switch(expression) {
@@ -18,7 +18,9 @@ switch(expression) {
   case 2:
     src = "./p1c5s2_maps_sets.js"; break;
   case 3:
-    src = "./p1c5s3_destructuring.js"; break;
+    src = "./p1c5s3_objects.js"; break;
+  case 4:
+    src = "./p1c5s4_destructuring.js"; break;
   default:
     console.error("ERROR: the provided expression is undefined!");
 } 

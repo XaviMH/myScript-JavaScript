@@ -2,8 +2,6 @@
 /* 
   SUMMARY
 
-  Summary
-
   Objects that can be used in for..of are called iterable.
 
     - Technically, iterables must implement the method named Symbol.iterator.
