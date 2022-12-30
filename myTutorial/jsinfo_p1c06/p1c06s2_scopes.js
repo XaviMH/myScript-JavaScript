@@ -1,8 +1,10 @@
 // About function scopes (more info: https://javascript.info/closure)
 
-/* Theory 1 */
-// Code blocks
-// If a variable is declared inside a code block {...}, it’s only visible inside that block.
+/* 
+  Theory 1 
+  Code blocks: 
+    - if a variable is declared inside a code block {...}, it’s only visible inside that block.
+*/
 {
   let message = "Hello";
   console.log(message);
@@ -12,10 +14,12 @@
   console.log(message);
 }
 
-/* Theory 2 */
-// All functions remember the Lexical Environment in which they were made. Technically, there’s no 
-// magic here: all functions have the hidden property named [[Environment]], that keeps the reference
-// to the Lexical Environment where the function was created:
+/* 
+  Theory 2 
+  All functions remember the Lexical Environment in which they were made. Technically, there’s no 
+  magic here: all functions have the hidden property named [[Environment]], that keeps the reference
+  to the Lexical Environment where the function was created:
+*/
 {
   function makeWorker() {
     let name = "Pete";
@@ -31,9 +35,11 @@
           // storedf within work() contains "Pete"
 }
 
-/* Exercise 1 */
-// The following code creates an array of shooters.
-// Every function is meant to output its number. But something is wrong...
+/* 
+  Exercise 1
+  The following code creates an array of shooters.
+  Every function is meant to output its number. But something is wrong...
+*/
 {
   function makeArmy() {
     let shooters = [];
@@ -60,9 +66,10 @@
 }
 
 // Now why do all such functions show the same value, 10?
-// That’s because there’s no local variable i inside shooter functions. When such a function is called, it takes i from its outer lexical environment.
-// Then, what will be the value of i? Always 10. The solution is to either ise 2 variables (or simply using a "for" loop, which declares the i to be
-// internal within the function itself)
+// That’s because there’s no local variable i inside shooter functions. When such a function is called, 
+// it takes i from its outer lexical environment.
+// Then, what will be the value of i? Always 10. The solution is to either use 2 variables (or simply 
+// using a "for" loop, which declares the i to be internal within the function itself)
 { 
   function makeArmy() {
     let shooters = [];
@@ -76,11 +83,12 @@
       i++;
     }
 
-    return shooters;
+    return shooters; // the current function is returning an Array
   }
   let army = makeArmy();
   army[0](); // 0
-  army[5](); // 5
+  army[1](); // 1
+  army[2](); // 2
 }
 
 // ... using "for"
@@ -96,12 +104,15 @@
     return shooters;
   }
   let army = makeArmy();
-  army[0](); // 0
-  army[5](); // 5
+  army[7](); // 7
+  army[8](); // 8
+  army[9](); // 9
 }
 
-/* Playing around */
-
+/*
+  Exercise 2 
+  Playing around!
+*/
 {
   console.log("------- count! --------")
   function makeCounter() {
@@ -124,15 +135,11 @@
   let counter = makeCounter();
   console.log(counter());
   console.log(counter());
-  console.log(counter());
   counter.set(10);
   console.log(counter());
   console.log(counter());
-  console.log(counter());
   counter.decrease();
   counter.decrease();
-  counter.decrease();
-  console.log(counter());
   console.log(counter());
   console.log(counter());
 }
