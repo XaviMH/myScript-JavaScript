@@ -22,6 +22,7 @@
   Theory 1 
   Set and use timeouts can be done in different ways. A few examples follow
 */
+console.log("Theory 1 -----------------");
 {
     console.log("Starting!");
     function sayHi(phrase, who) {
@@ -37,6 +38,7 @@
   Note that the description of the function accepts a string, but don't use that, just replace it
   with a function arrow, like so:
 */
+console.log("Theory 2 -----------------");
 {
     console.log("Starting!");
     abc = setTimeout(() => console.log('Hello'), 1000);  // outputs "Hello"
@@ -47,6 +49,7 @@
   Theory 3
   There are two ways of running something regularly: one is setInterval. The other one is a nested setTimeout 
 */
+console.log("Theory 3 -----------------");
 {
     console.log("Starting!");
     let timerId = setInterval(() => console.log('tick Th3'), 1000);                  // set up and endless tick
@@ -57,6 +60,7 @@
   Theory 4 
   Nesting calls, where we can realize that nested "setTimeout" allows to set the delay between the executions more precisely than "setInterval"
 */
+console.log("Theory 4 -----------------");
 {
     let delay = 5000;
 
@@ -79,6 +83,7 @@
   Theory 5
   Be careful, given that a delay of "zero" depends on the browser itself
 */
+console.log("Theory 5 -----------------");
 {
     let start = Date.now();
     let times = [];
@@ -101,6 +106,7 @@
     1)  Using setInterval.
     2)  Using nested setTimeout.
 */
+console.log("Exercise 1 -----------------");
 
 // Using setInterval:
 {
