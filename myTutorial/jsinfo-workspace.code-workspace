@@ -17,12 +17,12 @@
 			"path": "jsinfo_p1c05"
 		},
 		{
-			"name": "jsinfo_p1c07",
-			"path": "jsinfo_p1c07"
-		},
-		{
 			"name": "jsinfo_p1c06",
 			"path": "jsinfo_p1c06"
+		},
+		{
+			"name": "jsinfo_p1c07",
+			"path": "jsinfo_p1c07"
 		},
 		{
 			"name": "jsinfo_p1c08",
@@ -51,10 +51,6 @@
 		{
 			"name": "jsinfo_p1c14",
 			"path": "jsinfo_p1c14"
-		},
-		{
-			"name": "jsinfo_p1c96",
-			"path": "jsinfo_p1c96"
 		}
 	],
 	"settings": {
@@ -64,6 +60,6 @@
 			"configurations": [],
 			"compounds": []
 		},
-		"liveServer.settings.multiRootWorkspaceName": "jsinfo_p1c06"
+		"liveServer.settings.multiRootWorkspaceName": "jsinfo_p1c07"
 	},
 }

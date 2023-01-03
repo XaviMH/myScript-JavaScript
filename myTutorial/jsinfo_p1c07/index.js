@@ -9,22 +9,14 @@ import { dynamicallyLoadScript } from "./xLibs/importScripts.js"
 let src = "";
 let expression = 0;
 
-let SELECTION = 1; 
+let SELECTION = 2;
 do expression++; while (expression < SELECTION);
 
 switch(expression) {
   case 1:
-    src = "./p1c06s1_rest.js"; break;
+    src = "./p1c07s1_property_flags.js"; break;
   case 2:
-    src = "./p1c06s2_scopes.js"; break;
-  case 3:
-    src = "./p1c06s3_timeouts.js"; break;
-  case 4:
-    src = "./p1c06s4_decos_or_wrappers.js"; break;
-  case 5:
-    src = "./p1c06s5_binding.js"; break;
-  case 6:
-    src = "./p1c06s6_arrow_funcs.js"; break;
+    src = "./p1c07s2_set_get.js"; break;
   default:
     console.error("ERROR: the provided expression is undefined!");
 } 

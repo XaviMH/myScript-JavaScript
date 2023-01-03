@@ -17,19 +17,17 @@
 // We didn’t see them yet, because generally they do not show up. When we create a property “the usual way”, all of them are true. But we also can change them anytime.
 
 
-/* Theory 1 */
-// The method Object.getOwnPropertyDescriptor allows to query the full information about a property.
+/* 
+  Theory 1
+  The method Object.getOwnPropertyDescriptor allows to query the full information about a property.
+  The syntax is:
+    let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
+  where:
+    - obj is the object to get information from.
+    - propertyName is the name of the property.
 
-// The syntax is:
-
-// let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
-
-// obj
-//     The object to get information from.
-// propertyName
-//     The name of the property.
-
-// The returned value is a so-called “property descriptor” object: it contains the value and all the flags.
+  The returned value is a so-called “property descriptor” object: it contains the value and all the flags.
+*/
 {
   let user = {
     name: "John"
@@ -59,7 +57,7 @@ let user = {};
 
   let descriptor = Object.getOwnPropertyDescriptor(user, 'name');
 
-  alert( JSON.stringify(descriptor, null, 2 ) );
+  console.log( JSON.stringify(descriptor, null, 2 ) );
   /*
   {
     "value": "John",

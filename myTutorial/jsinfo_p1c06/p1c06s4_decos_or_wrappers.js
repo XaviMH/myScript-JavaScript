@@ -60,6 +60,7 @@
 
 /* 
   Theory 2 
+  Explaining: func.call
 
   To make it all clear, let’s see more deeply how @this is passed along:
    1) After the decoration worker.slow is now the wrapper function (x) { ... }.
@@ -244,7 +245,7 @@ console.log("Exercise 2 ----------------")
 
 {
   function f(x) {
-    console.log(x);
+    console.log( `I am f(x), logging x=${x}`);
   }
 
   function delay(f, ms) {
@@ -335,8 +336,10 @@ console.log("Exercise 3 -----------------")
 
   In the end, A call to throttle(func, ms) returns wrapper:
     1)  During the first call, the wrapper just runs func and sets the cooldown state (isThrottled = true).
-    2)  In this state all calls are memorized in savedArgs/savedThis. Please note that both the context and the arguments are equally important and should be memorized. We need them simultaneously to reproduce the call.
-    3)  After ms milliseconds pass, setTimeout triggers. The cooldown state is removed (isThrottled = false) and, if we had ignored calls, wrapper is executed with the last memorized arguments and context.
+    2)  In this state all calls are memorized in savedArgs/savedThis. Please note that both the context and the arguments
+        are equally important and should be memorized. We need them simultaneously to reproduce the call.
+    3)  After ms milliseconds pass, setTimeout triggers. The cooldown state is removed (isThrottled = false) and, if we 
+        had ignored calls, wrapper is executed with the last memorized arguments and context.
 */
 console.log("Exercise 4 -----------------")
 {
