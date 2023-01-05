@@ -4,9 +4,12 @@
 
 
 
-/* Theory 1 */
-// Then use new MyClass() to create a new object with all the listed methods.
-// The constructor() method is called automatically by new, so we can initialize the object there.
+/* 
+  Theory 1
+  Then use new MyClass() to create a new object with all the listed methods.
+  The constructor() method is called automatically by new, so we can initialize the object there.
+  */
+console.log("Theory 1 ------------------");
 {
   class User {
 
@@ -25,16 +28,21 @@
     user.sayHi();
 }
 
-/* Theory 2 */
-// Please, note that a Class is just a normal Function
-// Still, there are important differences between using a Class and using a Function:
-//   1)  First, a function created by class is labelled by a special internal property [[IsClassConstructor]]: true. So 
-//       it’s not entirely the same as creating it manually.
-//   2)  A string representation of a class constructor in most JavaScript engines starts with the “class…”
-//   3)  Class methods are non-enumerable. A class definition sets enumerable flag to false for all methods in the "prototype",
-//       which is good, because if we for..in over an object, we usually don’t want its class methods.
-//   4) Classes always use strict. All code inside the class construct is automatically in strict mode.
-//   5) besides, class syntax brings many other features that we’ll explore later.
+/* 
+  Theory 2
+  Please, note that a Class is just a normal Function
+
+  Still, there are important differences between using a Class and using a Function:
+    1) First, a function created by class is labelled by a special internal property [[IsClassConstructor]]: true. So 
+       it’s not entirely the same as creating it manually.
+    2) A string representation of a class constructor in most JavaScript engines starts with the “class…”
+    3) Class methods are non-enumerable. A class definition sets enumerable flag to false for all methods in the "prototype",
+       which is good, because if we for..in over an object, we usually don’t want its class methods.
+    4) Classes always use strict. All code inside the class construct is automatically in strict mode.
+
+  besides, class syntax brings many other features that we’ll explore later.
+*/
+console.log("Theory 2 ------------------");
 {
   // Using Class ......
   class User {
@@ -54,8 +62,7 @@
   // there are exactly two methods in the prototype
   console.log(Object.getOwnPropertyNames(User.prototype)); // 2 (constructor, and sayHi)
 }
-{
-  // Using Functions could results in a similar, but not equal, representation:
+{  // Using Functions could results in a similar, but not equal, representation:
 
   // 1. Create constructor function
   function User(name) {
@@ -74,8 +81,11 @@
   user.sayHi();
 }
 
-/* Theory 2 */
-// One can Class as if they were a function
+/*  
+  Theory 3
+  One can Class as if they were a function
+*/
+console.log("Theory 3 ------------------");
 {
   function makeClass(phrase) {
     // declare a class and return it
@@ -92,8 +102,11 @@
   new User().sayHi(); // Hello
 }
 
-/* Theory 3 */
-// Please remember that classes can incude getters/setters
+/* 
+  Theory 4
+  Remember that classes can incude getters/setters
+*/
+console.log("Theory 4 ------------------");
 { 
   class User {
 
@@ -121,13 +134,16 @@
   user = new User("John");
   console.log(user.name); // John
   
-  user = new User(""); // Name is too short.
+  user = new User("Ann"); // Name is too short.
 
 }
 
-/* Theory 3 */
-// Classes can also have fields
-// The important difference of class fields is that they are set on individual objects, not User.prototype:
+/* 
+  Theory 5
+  Classes can also have fields
+  The important difference of class fields is that they are set on individual objects, not User.prototype:
+*/
+console.log("Theory 5 ------------------");
 {
   class User {
     name = "Ann";
@@ -142,10 +158,13 @@
 
 }
 
-/* Theory 4 */
-// As demonstrated in the chapter Function binding functions in JavaScript have a dynamic this. It depends on the context of the call.
-// So if an object method is passed around and called in another context, this won’t be a reference to its object any more.
-  {
+/* 
+  Theory 6
+  As demonstrated in the chapter Function binding functions in JavaScript have a dynamic this. It depends on the context of the call.
+  So if an object method is passed around and called in another context, this won’t be a reference to its object any more.
+*/
+console.log("Theory 6 ------------------");
+{
   class Button {
     constructor(value) {
       this.value = value;
@@ -161,8 +180,11 @@
   setTimeout(button.click, 1000); // undefined
 }
 
-/* Exercise 1 */
-// Given the next Clock task, write it in Class syntax
+/* 
+  Exercise 1
+  Given the next Clock task, write it in Class syntax
+*/
+console.log("Exercise 1 ------------------");
 {
   function Clock({ template }) {
   
@@ -190,8 +212,13 @@
   
   }
   
-  let clock = new Clock({template: 'h:m:s'});
+  let clock = new Clock({template: 'h-m-s'});
   clock.start();
+
+  // we stop the clock after a few seconds, to avoid spam
+  setTimeout(() => {
+    clock.stop(); 
+    console.log("... now stopping the low resolution clock")}, 3000); 
 
 }
 
@@ -226,5 +253,11 @@
   
   let clock = new Clock({template: 'h:m:s'});
   clock.start();
+
+  // we stop the clock after a few seconds, to avoid spam
+  setTimeout(() => {
+    clock.stop(); 
+    console.log("... now stopping the low resolution clock")}, 3000); 
+
 
 }

@@ -1,26 +1,31 @@
-//
-// Summary
-//
-// To extend a class: 
-//    - class Child extends Parent:
-//    - That means Child.prototype.__proto__ will be Parent.prototype, so methods are inherited.
-//
-// When overriding a constructor:
-//    - We must call parent constructor as super() in Child constructor before using this.
-// 
-// When overriding another method:
-//    - We can use super.method() in a Child method to call Parent method.
-//
-// Internals:
-//    - Methods remember their class/object in the internal [[HomeObject]] property. That’s how super resolves parent methods.
-//    - So it’s not safe to copy a method with super from one object to another.
-//
-// Also:
-//    - Arrow functions don’t have their own this or super, so they transparently fit into the surrounding context.
+
+/*
+  SUMMARY
+
+  To extend a class: 
+     - class Child extends Parent:
+     - That means Child.prototype.__proto__ will be Parent.prototype, so methods are inherited.
+
+  When overriding a constructor:
+     - We must call parent constructor as super() in Child constructor before using this.  
+
+  When overriding another method:
+     - We can use super.method() in a Child method to call Parent method.
+
+  Internals:
+     - Methods remember their class/object in the internal [[HomeObject]] property. That’s how super resolves parent methods.
+     - So it’s not safe to copy a method with super from one object to another.
+
+  Also:
+     - Arrow functions don’t have their own this or super, so they transparently fit into the surrounding context.
+*/
 
 
-/* Theory 1 */
-// If we assume that we have the animal class, we can create a rabbit one that extends it with the "extends" word, like so:
+/* 
+  Theory 1
+  If we assume that we have the animal class, we can create a rabbit one that extends it with the "extends" word, like so:
+*/
+console.log("Theory 1 ---------------------");
 {
   class Animal {
     constructor(name) {
@@ -50,31 +55,30 @@
 
 }
 
-/* Theory 2 */
-// Now let’s move forward and override a method. By default, all methods that are not specified in class Rabbit are 
-// taken directly “as is” from class Animal.
-// But if we specify our own method in Rabbit, such as stop() then it will be used instead
-// Usually, however, we don’t want to totally replace a parent method, but rather to build on top of it to tweak or 
-// extend its functionality. We do something in our method, but call the parent method before/after it or in the process.
-// Classes provide "super" keyword for that.
+/* 
+  Theory 2
+  Now let’s move forward and override a method. By default, all methods that are not specified in class Rabbit are 
+  taken directly “as is” from class Animal.
+  But if we specify our own method in Rabbit, such as stop() then it will be used instead
+  Usually, however, we don’t want to totally replace a parent method, but rather to build on top of it to tweak or 
+  extend its functionality. We do something in our method, but call the parent method before/after it or in the process.
+  Classes provide "super" keyword for that.
+*/
+console.log("Theory 1 ---------------------");
 {
   class Animal {
-
     constructor(name) {
       this.speed = 0;
       this.name = name;
     }
-  
     run(speed) {
       this.speed = speed;
       console.log(`${this.name} runs with speed ${this.speed}.`);
     }
-  
     stop() {
       this.speed = 0;
       console.log(`${this.name} stands still.`);
     }
-  
   }
   
   class Rabbit extends Animal {
@@ -89,14 +93,16 @@
   }
   
   let rabbit = new Rabbit("White Rabbit");
-  
   rabbit.run(5); // White Rabbit runs with speed 5.
   rabbit.stop(); // White Rabbit stands still. White Rabbit hides!
 
 }
 
-/* Theory 3 */ 
-// Overwriting the constuctor is a little more complex however
+/* 
+  Theory 3
+  Overwriting the constuctor is a little more complex however
+*/
+console.log("Theory 3 ---------------------");
 {
   class Animal {
     constructor(name) {
@@ -147,15 +153,18 @@
     // ...
   }
   
-  // now fine
+  // now it works
   let rabbit = new Rabbit("White Rabbit", 10);
   console.log(rabbit.name); // White Rabbit
   console.log(rabbit.earLength); // 10  
   
 }
 
-/* Theory 3 */
-// Beware of this particular case
+/* 
+  Theory 4
+  Beware of this particular case
+*/
+console.log("Theory 4 ---------------------");
 {
   class Animal {
     name = 'animal';
@@ -193,9 +202,12 @@
   new Rabbit(); // rabbit
 }
 
-/* Exercise 1 */
-// Here’s the code with Rabbit extending Animal.
-// Unfortunately, Rabbit objects can’t be created. What’s wrong? Fix it.
+/* 
+  Exercise 1
+  Here’s the code with Rabbit extending Animal.
+  Unfortunately, Rabbit objects can’t be created. What’s wrong? Fix it.
+*/
+console.log("Exercise 1 ---------------------");
 {
   class Animal {
 
@@ -217,12 +229,15 @@
 }
 
 
-/* Exercise 2 */
-// We’ve got a Clock class. As of now, it prints the time every second.
-// Create a new class ExtendedClock that inherits from Clock and adds the parameter precision – the number of 
-// ms between “ticks”. Should be 1000 (1 second) by default.
-//   1) Your code should be in the file extended-clock.js
-//   2) Don’t modify the original clock.js. Extend it.
+/* 
+  Exercise 2
+
+  We’ve got a Clock class. As of now, it prints the time every second.
+  Create a new class ExtendedClock that inherits from Clock and adds the parameter precision – the number of 
+  ms between “ticks”. Should be 1000 (1 second) by default.
+    1) Your code should be in the file extended-clock.js
+    2) Don’t modify the original clock.js. Extend it.
+*/
 {
   class Clock {
     constructor({ template }) {
@@ -282,9 +297,14 @@
   // and the HTML test should be:
   let lowResolutionClock = new ExtendedClock({
     template: 'h:m:s',
-    precision: 5000 // every 5 seconds
+    precision: 2000 // every 2 seconds
   });
 
   lowResolutionClock.start();
+
+  // we stop the clock after a few seconds, to avoid spam
+  setTimeout(() => {
+    lowResolutionClock.stop(); 
+    console.log("... now stopping the low resolution clock")}, 10000); 
 
 }

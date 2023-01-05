@@ -60,7 +60,7 @@ console.log("Theory 2 ----------------")
   let john;
   john = new User("John", "ABCD");
   console.log("User created");
-  console.log( "> John was born the: " + john.birthday ); // birthday is available, but it's just a number (and not a Date)
+  console.log( "> John was born the: " + john.birthday ); // birthday is available, but it's just a string (and not a Date)
   console.log( "> Thus, he has this age: " + john.age );  // ...  which causes us not to be able to read John's age
   
   john = new User("John", new Date(2010, 6, 1));

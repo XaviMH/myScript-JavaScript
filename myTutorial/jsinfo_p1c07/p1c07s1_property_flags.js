@@ -49,7 +49,7 @@
 /* Theory 2 */ 
 // To change the flags, we can use Object.defineProperty
 {
-let user = {};
+  let user = {};
 
   Object.defineProperty(user, "name", {
     value: "John"

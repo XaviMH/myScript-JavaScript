@@ -23,7 +23,12 @@
 
 export function dynamicallyLoadScript(url, log = false) {  
 
-  if (log) console.log(`Loading the script [${url}]`);
+  if (log) {
+    console.log(`Loading the script [${url}]`);
+    if(!url.endsWith(".js") && !url.endsWith(".mjs")){
+      console.log(`> WARNING: could this not be a standard JS file?`);
+    }
+  }
 
   var script = document.createElement("script");  // create a script DOM node
   script.type = 'text/javascript';
