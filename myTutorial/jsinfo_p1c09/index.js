@@ -9,7 +9,7 @@ import { dynamicallyLoadScript } from "./xLibs/importScripts.js"
 let src = "";
 let expression = 0;
 
-let SELECTION = 2;
+let SELECTION = 4;
 do expression++; while (expression < SELECTION);
 
 switch(expression) {

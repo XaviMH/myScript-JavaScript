@@ -1,18 +1,23 @@
-//
-// Summary
-// Static methods are used for the functionality that belongs to the class “as a whole”. 
-// It doesn’t relate to a concrete class instance.
-// For example, a method for comparison Article.compare(article1, article2) or a factory 
-// method Article.createTodays().
-// They are labeled by the word static in class declaration.
-// Static properties are used when we’d like to store class-level data, also not bound 
-// to an instance.
+/*
+  SUMMARY
 
-/* Theory 1 */
-// We can also assign a method to the class as a whole. Such methods are called static.
-// Usually, static methods are used to implement functions that belong to the class as a 
-// whole, but not to any particular object of it.
-// In a class declaration, they are prepended by static keyword, like this:
+  Static methods are used for the functionality that belongs to the class “as a whole”. 
+  It doesn’t relate to a concrete class instance.
+  For example, a method for comparison Article.compare(article1, article2) or a factory 
+  method Article.createTodays().
+  They are labeled by the word static in class declaration.
+  Static properties are used when we’d like to store class-level data, also not bound 
+  to an instance.
+*/
+
+/* 
+  Theory 1
+  We can also assign a method to the class as a whole. Such methods are called static.
+  Usually, static methods are used to implement functions that belong to the class as a 
+  whole, but not to any particular object of it.
+  In a class declaration, they are prepended by static keyword, like this:
+*/
+console.log("Theory 1 --------------------------");
 {
   class User {
     static staticMethod() {
@@ -35,11 +40,14 @@
 
 }
 
-/* Theory 2 */
-// Usually, static methods are used to implement functions that belong to the class 
-// as a whole, but not to any particular object of it.
-// For instance, we have Article objects and need a function to compare them.
-// A natural solution would be to add Article.compare static method:
+/* 
+  Theory 2
+  Usually, static methods are used to implement functions that belong to the class 
+  as a whole, but not to any particular object of it.
+  For instance, we have Article objects and need a function to compare them.
+  A natural solution would be to add Article.compare static method:
+*/
+console.log("Theory 2 --------------------------");
 {
   class Article {
     constructor(title, date) {
@@ -65,16 +73,20 @@
 
 }
 
-/* Theory 3 */
-// Another example would be a so-called “factory” method.
-// Let’s say, we need multiple ways to create an article:
-//   1)  Create by given parameters (title, date etc).
-//   2)  Create an empty article with today’s date.
-//   3)  …or else somehow.
-// The first way can be implemented by the constructor. And for the second one we can make 
-// a static method of the class. Such as Article.createTodays() here
-// Note that for class B extends A the prototype of the class B itself points
-// to A: B.[[Prototype]] = A. So if a field is not found in B, the search continues in A.
+/* 
+  Theory 3
+
+  Another example would be a so-called “factory” method.
+  Let’s say, we need multiple ways to create an article:
+    1)  Create by given parameters (title, date etc).
+    2)  Create an empty article with today’s date.
+    3)  …or else somehow.
+  The first way can be implemented by the constructor. And for the second one we can make 
+  a static method of the class. Such as Article.createTodays() here
+  Note that for class B extends A the prototype of the class B itself points
+  to A: B.[[Prototype]] = A. So if a field is not found in B, the search continues in A.
+*/
+console.log("Theory 3 --------------------------");
 {
   class Article {
     constructor(title, date) {
@@ -94,9 +106,11 @@
 
 }
 
-/* Theory 4 */
-// In this example we mix class static proerties with a function that is
-// editing them
+/* 
+  Theory 4
+  In this example we mix class static proerties with a function that is editing them
+*/
+console.log("Theory 4 --------------------------");
 {
   class Animal {
     static planet = "Earth";
@@ -135,10 +149,12 @@
   console.log(Rabbit.planet); // Earth
 }
 
-/* Exercise 1 */ 
-// As we know, all objects normally inherit from Object.prototype and get access to “generic” object methods like hasOwnProperty etc.
-// But if we spell it out explicitly like "class Rabbit extends Object", then the result would be different from a simple "class Rabbit"?
-// What’s the difference?
+/* 
+  Exercise 1
+  As we know, all objects normally inherit from Object.prototype and get access to “generic” object methods like hasOwnProperty etc.
+  But if we spell it out explicitly like "class Rabbit extends Object", then the result would be different from a simple "class Rabbit"?
+  What’s the difference?
+*/
 console.log("Exercise 1 --------------------")
 {
   class Rabbit extends Object {  // (*) <--- issue comes here
