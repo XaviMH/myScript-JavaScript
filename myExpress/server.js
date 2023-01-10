@@ -34,17 +34,34 @@ const app = express()
 // Set EJS as the View Port
 app.set("view engine", "ejs")
 
-app.get('/', (req, res, next) => {
-    console.log("Im inside a user GET request!")
+// Optionally, we could use logger here as middleware (top->bottom)
+app.use(logger)
 
+// In case we want to serve completely static files, we can use this format
+// e.g. http://localhost:3000/test1/static.html (good for JSON+APIs)
+app.use(express.static("public"))
+
+// Simple GET request of the root folder (http://localhost:3000)
+app.get('/', logger, (req, res, next) => {
+    console.log("Im inside a root's GET request!")
     // res.send('Hi')                   // Return a response
     // res.sendStatus(500)              // Return a status code
     // res.status(500).send("Beep!")    // Error 500
     // res.download('server.js')        // downloads a file
     // res.json( { message: "Boop!"})   // Returns a JSON
-    res.render("index")                 // This line uses the EJS View Port
-    
+    res.render("index", { text: "World" }) // This line uses the EJS View Port
 })
+
+// Using the ROUTER function of Express
+// It routes all "/users" requests into "./routes/users.js"
+const userRouter = require('./routes/users') 
+app.use('/users', userRouter)
+
+// Create a logger function
+function logger(req, res, next) {
+    console.log("--> " + req.originalUrl)
+    next()
+}
 
 // Listen to port 3000 (e.g. http://localhost:3000)
 app.listen(3000)  
