@@ -41,6 +41,10 @@ app.use(logger)
 // e.g. http://localhost:3000/test1/static.html (good for JSON+APIs)
 app.use(express.static("public"))
 
+// Allows Express to access content within HTML (or JSON) files
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
+
 // Simple GET request of the root folder (http://localhost:3000)
 app.get('/', logger, (req, res, next) => {
     console.log("Im inside a root's GET request!")
@@ -49,12 +53,12 @@ app.get('/', logger, (req, res, next) => {
     // res.status(500).send("Beep!")    // Error 500
     // res.download('server.js')        // downloads a file
     // res.json( { message: "Boop!"})   // Returns a JSON
-    res.render("index", { text: "World" }) // This line uses the EJS View Port
+    res.render("index", { text: "World!" }) // This line uses the EJS View Port
 })
 
 // Using the ROUTER function of Express
 // It routes all "/users" requests into "./routes/users.js"
-const userRouter = require('./routes/users') 
+const userRouter = require('./routes/users.js') 
 app.use('/users', userRouter)
 
 // Create a logger function
