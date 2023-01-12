@@ -1,24 +1,28 @@
-//
-// Summary
 
-// Let’s return to the problem mentioned in the chapter Introduction: callbacks: we have a 
-// sequence of asynchronous tasks to be performed one after another — for instance, loading
-// scripts. How can we code it well?
+/*
+  SUMMARY
 
-// Promises provide a couple of recipes to do that. In this chapter we cover "promise chaining".
-// The idea is that the result is passed through the chain of .then handlers.
+  Let’s return to the problem mentioned in the chapter Introduction: callbacks: we have a 
+  sequence of asynchronous tasks to be performed one after another — for instance, loading
+  scripts. How can we code it well?
 
-// Here the flow is:
-//   1)  The initial promise resolves in 1 second (*),
-//   2)  Then the .then handler is called (**), which in turn creates a new promise (resolved with 2 value).
-//   3)  The next then (***) gets the result of the previous one, processes it (doubles) and passes it to the next handler.
-//   4)  …and so on.
+  Promises provide a couple of recipes to do that. In this chapter we cover "promise chaining".
+  The idea is that the result is passed through the chain of .then handlers.
 
-/* Theory 1 */
-// The whole thing works, because every call to a .then returns a new promise, so that we can call the next .then on it.
-// When a handler returns a value, it becomes the result of that promise, so the next .then is called with it.
-{
-  console.log("Theory 1 ----------- ");
+  Here the flow is:
+    1)  The initial promise resolves in 1 second (*),
+    2)  Then the .then handler is called (**), which in turn creates a new promise (resolved with 2 value).
+    3)  The next then (***) gets the result of the previous one, processes it (doubles) and passes it to the next handler.
+    4)  …and so on.
+*/
+
+/* 
+  Theory 1
+  The whole thing works, because every call to a .then returns a new promise, so that we can call the next .then on it.
+  When a handler returns a value, it becomes the result of that promise, so the next .then is called with it.
+*/
+console.log("Theory 1 ------------------------ ");
+{  
 
   new Promise(function(resolve, reject) {
 
@@ -26,60 +30,62 @@
   
   }).then(function(result, reject) { // (**)
   
-    console.log("Th1- " + result); // 1
+    console.log("T1- " + result); // 1
     return result * 2;
   
   }).then(function(result, reject) { // (***)
   
-    console.log("Th1- " + result); // 2
+    console.log("T1- " + result); // 2
     return result * 2;
   
   }).then(function(result, reject) {
   
-    console.log("Th1- " + result); // 4
+    console.log("T1- " + result); // 4
     return result * 2;
   
   });
 }
 
-/* Theory 2 */
-// A classic newbie error: technically we can also add many .then to a single promise. This is not chaining.
+/* 
+  Theory 2
+  A classic newbie error: technically we can also add many .then to a single promise. This is not chaining.
+*/
+console.log("Theory 2 ----------- ");
 {
-  console.log("Theory 2 ----------- ");
-
   let promise = new Promise(function(resolve, reject) {
     setTimeout(() => resolve(1), 1000);
   });
   
   promise.then(function(result) {
-    console.log("Th2- " + result); // 1
+    console.log("T2- " + result); // 1
     return result * 2;
   });
   
   promise.then(function(result) {
-    console.log("Th2- " + result); // 1
+    console.log("T2- " + result); // 1
     return result * 2;
   });
   
   promise.then(function(result) {
-    console.log("Th2- " + result); // 1
+    console.log("T2- " + result); // 1
     return result * 2;
   });
 
 }
 
-/* Theory 3*/
-/* Obviously additional code can be added to each Promise, like follows... */
+/* 
+  Theory 3
+  Obviously additional code can be added to each Promise, like follows...
+*/
+console.log("Theory 3 ----------- ");
 {
-  console.log("Theory 3 ----------- ");
-
-  new Promise(function(resolve, reject) {
+    new Promise(function(resolve, reject) {
 
     setTimeout(() => resolve(5), 1000);                // the @resolve is delayed 1 second
 
   }).then(function(result) {
 
-    console.log("Th3- " + result); // 5
+    console.log("T3- " + result); // 5
 
     return new Promise((resolve, reject) => { // (*)
       setTimeout(() => resolve(result * 10), 1000);    // the @resolve is delayed 1 second
@@ -87,7 +93,7 @@
 
   }).then(function(result) { // (**)
 
-    console.log("Th3- " + result); // 50
+    console.log("T3- " + result); // 50
 
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(result * 10), 1000);    // the @resolve is delayed 1 second
@@ -95,14 +101,17 @@
 
   }).then(function(result) {
 
-    console.log("Th3- " + result); // 500
+    console.log("T3- " + result); // 500
 
   });
 }
 
-/* Theory 4 */
-// Note that this resolves the "Pyramid of Doom" that was created in the "Callback" section
-// section, which it can now be resolved as a code that "runs down" (check the tag (*)):
+/* 
+  Theory 4
+  Note that this resolves the "Pyramid of Doom" that was created in the "Callback" section
+  section, which it can now be resolved as a code that "runs down" (check the tag (*)):
+*/
+console.log("Theory 4 ----------- ");
 {
   function loadScript(src) {
     return new Promise(function(resolve, reject) {   // (*)  <--- this code creates new Promises
@@ -117,20 +126,22 @@
   loadScript("./data/myscript.js")                   // <-- new @Promise created
   .then(script => loadScript("./data/myscript.js"))  // <-- new @Promise created
   .then(script => loadScript("./data/myscript.js"))  // <-- new @Promise created
-  .then(script => {                                                                                  // <-- new @Promise created
-    // scripts are loaded, we can use functions declared there
-    console.log("Th4- All 3 JavaScripts have been successfully loaded!")
+  .then(script => {                                  // <-- new @Promise created
+    console.log("T4- All 3 JavaScripts have been successfully loaded!") // this function has access to variables script1, script2 and script3
   });
 }
 
-/* Theory 5 */
-// Technically, we could add .then directly to each loadScript, but please, notice that we would be 
-// running, again, into the Pyuramid of Doom (code "runs to the right")
-// In general, the "run down" (i.e. chaining) is preferred to code that "runs to the right" (i.e. Pyramid of Doom)
-//
-// NOTE: please notice that sometimes it’s ok to write .then directly, because the nested function has access
-// to the outer scope. In the that follows, the most nested callback has access to all variables script1, script2, 
-// script3.
+/* 
+  Theory 5
+  Technically, we could add .then directly to each loadScript, but please, notice that we would be 
+  running, again, into the Pyuramid of Doom (code "runs to the right")
+  In general, the "run down" (i.e. chaining) is preferred to code that "runs to the right" (i.e. Pyramid of Doom)
+
+  NOTE: please notice that sometimes it’s ok to write .then directly, because the nested function has access
+  to the outer scope. In the that follows, the most nested callback has access to all variables script1, script2, 
+  script3.
+*/
+console.log("Theory 5 ----------- ");
 {
   function loadScript(src) {
     return new Promise(function(resolve, reject) {
@@ -146,14 +157,17 @@
     loadScript("./data/myscript.js").then(script2 => {
       loadScript("./data/myscript.js").then(script3 => {
         // this function has access to variables script1, script2 and script3
-        console.log("Th5- All 3 JavaScripts have been successfully loaded!")
+        console.log("T5- All 3 JavaScripts have been successfully loaded!")
       });
     });
   });
 }
 
-/* Theroy 6.1 */ 
-// Here's a test on how to read a file, and process its contents, with "func expressions"
+/* 
+  Theroy 6.1
+  Here's a test on how to read a file, and process its contents, with "func expressions"
+*/
+console.log("Theory 6.1 ----------- ");
 {
   fetch('./data/user.json')
     // .then below runs when the remote server responds
@@ -164,7 +178,7 @@
     })
     .then(function(text) {
       // ...and here's the content of the remote file
-      console.error(text); // {"name": "XaviMH"}
+      console.log(`T6.1 I've read that the object is: ${text}`); // {"name": "XaviMH"}
     });
 }
 {
@@ -172,7 +186,7 @@
   // we also take this opposetunity to switch to "func arrows"
   fetch('./data/user.json')
     .then(response => response.json())
-    .then(user => console.error(user.name)); // XaviMH, got user name
+    .then(user => console.log(`T6.1 I've read that the object.name is: ${user.name}`)); // XaviMH, got user name
 }
 
 /* Theory 6.2 */ 
@@ -187,6 +201,7 @@
 //
 // NOTE:  the .then handler in line (*) now returns new Promise, that becomes settled only after the call 
 // of resolve(githubUser) in setTimeout (**). The next .then in the chain will wait for that.
+console.log("Theory 6.2 ----------- ");
 {
   fetch('./data/user.json')
   .then(response => response.json())
@@ -194,7 +209,7 @@
   .then(response => response.json())
   .then(githubUser => new Promise(function(resolve, reject) { // (*)
     let img = document.createElement('img');
-    img.src = githubUser.avatar_url;
+    img.src = githubUser.avatar_url;                                  // we assume this field exists inside the @githubUser object
     img.className = "promise-avatar-example";
     document.body.append(img);
 
@@ -204,6 +219,9 @@
     }, 3000);
   }))
   // triggers after 3 seconds
-  .then(githubUser => console.log(`Finished showing ${githubUser.name} for 3 seconds`));
+  .then(githubUser => console.log(`T6.2 Finished showing ${githubUser.name}'s Avatar, after 3 seconds`));
 
 }
+
+
+console.log("*******************************");

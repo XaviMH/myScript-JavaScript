@@ -24,6 +24,7 @@
         - Execute said "devStart" script (which uses Nodemon):
             - npm run devStart
     At this point in time, you server will be running (and serving) the file "server.js"
+    in an automatic mode.
  */
 console.log("Starting server!...")
 
