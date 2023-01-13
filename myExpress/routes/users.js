@@ -42,22 +42,23 @@ router.post('/', (req, res, next) => {
 })
 
 // catches --> http://localhost:3000/users/1
-// ...in a slow way
-// router.get('/:myId', (req, res, next) => {
-//     console.log(`Im inside a '/users' GET request, with a parameter ${req.params.myID}`)
-//     res.send(`Get User with ID ${req.params.myId}`)
-// })
-// 
-// router.put('/:myId', (req, res, next) => {
-//     console.log(`Im inside a '/users' PUT request, with a parameter ${req.params.myID}`)
-//     res.send(`Put User with ID ${req.params.myId}`)
-// })
-// 
-// router.delete('/:myId', (req, res, next) => {
-//     console.log(`Im inside a '/users' DELETE request, with a parameter ${req.params.myID}`)
-//     res.send(`Deleting User with ID ${req.params.myId}`)
-// })
-// ... in a quick way
+// ...in a slow way:
+//   router.get('/:myId', (req, res, next) => {
+//       console.log(`Im inside a '/users' GET request, with a parameter ${req.params.myID}`)
+//       res.send(`Get User with ID ${req.params.myId}`)
+//   })
+//   
+//   router.put('/:myId', (req, res, next) => {
+//       console.log(`Im inside a '/users' PUT request, with a parameter ${req.params.myID}`)
+//       res.send(`Put User with ID ${req.params.myId}`)
+//   })
+//   
+//   router.delete('/:myId', (req, res, next) => {
+//       console.log(`Im inside a '/users' DELETE request, with a parameter ${req.params.myID}`)
+//       res.send(`Deleting User with ID ${req.params.myId}`)
+//   })
+//
+// ... and in a quick way:
 router
     .route("/:myId")
     .get((req, res, next) => {
@@ -74,7 +75,7 @@ router
     })
 
 // User translator
-const users = [ { name: "Kyle"}, { name: "Ann"}, { name: "John"}]
+const users = [ { name: "Kyle"}, { name: "Ann"}, { name: "John"}]   // <-- manually provided data
 router.param("myId", (req, res, next, myId) => {
     req.user = users[myId]
     console.log(`Inside .param middleware: using ID of ${myId}, which is "${users[myId].name}"`)
